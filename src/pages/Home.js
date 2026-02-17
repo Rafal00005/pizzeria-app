@@ -1,8 +1,10 @@
 // Home page - displays all tables list
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card, Button } from 'react-bootstrap';
+import { Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import { selectAllTables } from '../redux/tablesRedux';
+// eslint-disable-next-line no-unused-vars
+import PropTypes from 'prop-types';
 
 const Home = () => {
 	const tables = useSelector(selectAllTables);
@@ -12,7 +14,12 @@ const Home = () => {
 			<h1 className='mb-4'>Tables in pizzeria</h1>
 
 			{tables.length === 0 ? (
-				<p>Loading tables...</p>
+				<div className='text-center'>
+					<Spinner animation='border' role='status'>
+						<span className='visually-hidden'>Loading...</span>
+					</Spinner>
+					<p className='mt-3'>Loading tables...</p>
+				</div>
 			) : (
 				<Row className='g-4'>
 					{tables.map((table) => (
@@ -34,6 +41,10 @@ const Home = () => {
 			)}
 		</div>
 	);
+};
+
+Home.propTypes = {
+	// Currently no props, but good practice to have
 };
 
 export default Home;

@@ -26,13 +26,39 @@ const TableDetails = () => {
 		}
 	}, [table]);
 
-	// Handle input change
+	// Handle input change with validation
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: name === 'status' ? value : parseInt(value),
-		}));
+		let newValue = name === 'status' ? value : parseInt(value) || 0;
+
+		setFormData((prev) => {
+			let updated = { ...prev, [name]: newValue };
+
+			// Auto-zero people amount if status is Free or Cleaning
+			if (name === 'status' && (value === 'Free' || value === 'Cleaning')) {
+				updated.peopleAmount = 0;
+			}
+
+			// Auto-zero bill if status is not Busy
+			if (name === 'status' && value !== 'Busy') {
+				updated.bill = 0;
+			}
+
+			// Ensure people amount doesn't exceed max people amount
+			if (name === 'maxPeopleAmount' && updated.peopleAmount > newValue) {
+				updated.peopleAmount = newValue;
+			}
+
+			// Clamp values between 0 and 10
+			if (name === 'peopleAmount' && newValue > 10) {
+				updated.peopleAmount = 10;
+			}
+			if (name === 'maxPeopleAmount' && newValue > 10) {
+				updated.maxPeopleAmount = 10;
+			}
+
+			return updated;
+		});
 	};
 
 	// Handle form submit
