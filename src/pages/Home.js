@@ -23,7 +23,7 @@ const Home = () => {
 			) : (
 				<Row className='g-4'>
 					{tables.map((table) => (
-						<Col key={table.id} md={6} lg={4}>
+						<Col key={table.id} md={4} lg={4}>
 							<Card className='h-100'>
 								<Card.Body>
 									<Card.Title>Table {table.id}</Card.Title>

@@ -3,17 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
 	return (
-		<Navbar bg='light' expand='lg' className='mb-3 rounded'>
+		<Navbar bg='primary' className='mb-3 rounded'>
 			<Container>
-				<Navbar.Brand href='/'>Pizzeria</Navbar.Brand>
-				<Navbar.Toggle aria-controls='basic-navbar-nav' />
-				<Navbar.Collapse id='basic-navbar-nav'>
-					<Nav className='ms-auto'>
-						<Nav.Link as={NavLink} to='/'>
-							Home
-						</Nav.Link>
-					</Nav>
-				</Navbar.Collapse>
+				<Navbar.Brand href='/' className='text-white fw-bold'>
+					Waiter app
+				</Navbar.Brand>
+				<Nav className='ms-auto'>
+					<Nav.Link as={NavLink} to='/' className='text-white'>
+						Home
+					</Nav.Link>
+				</Nav>
 			</Container>
 		</Navbar>
 	);
